@@ -1,0 +1,95 @@
+version: 2
+
+sources:
+  - name: ibis  # Replace with your actual PostgreSQL database name
+    schema: public       # Replace with your database schema (default: public)
+    tables:
+      - name: applications
+        description: "Details about different agricultural applications"
+        columns:
+          - name: application_id
+            description: "Unique identifier for the application"
+          - name: application_name
+            description: "Name of the application"
+          - name: description
+            description: "Description of the application"
+
+      - name: cultivars
+        description: "Information about cultivars and their application focus"
+        columns:
+          - name: cultivar_id
+            description: "Unique identifier for the cultivar"
+          - name: cultivar_name
+            description: "Name of the cultivar"
+          - name: relevance_region
+            description: "Regions where the cultivar is relevant"
+          - name: application_focus
+            description: "Focus areas for the cultivar"
+
+      - name: isolate_cultivar_relation
+        description: "Relationships between isolates and cultivars"
+        columns:
+          - name: rel_id
+            description: "Unique relationship identifier"
+          - name: isolate_id
+            description: "ID of the isolate"
+          - name: cultivar_id
+            description: "ID of the cultivar"
+
+      - name: isolate_function_relation
+        description: "Relationships between isolates and their functions"
+        columns:
+          - name: rel_id
+            description: "Unique relationship identifier"
+          - name: isolate_id
+            description: "ID of the isolate"
+          - name: function_id
+            description: "ID of the function"
+
+      - name: isolate_functions
+        description: "Functions performed by isolates"
+        columns:
+          - name: function_id
+            description: "Unique function identifier"
+          - name: function_name
+            description: "Name of the function"
+          - name: description
+            description: "Description of the function"
+
+      - name: isolates
+        description: "Details about microbial isolates"
+        columns:
+          - name: id_isolate
+            description: "Unique identifier for the isolate"
+          - name: strain_name
+            description: "Name of the microbial strain"
+          - name: strain_type
+            description: "Type of microbial strain"
+
+      - name: partners
+        description: "Details about project partners"
+        columns:
+          - name: partner_id
+            description: "Unique identifier for the partner"
+          - name: institution
+            description: "Full name of the partner institution"
+          - name: institution_shorthand
+            description: "Shorthand name of the institution"
+          - name: region_id
+            description: "Region ID of the institution"
+          - name: role
+            description: "Role of the partner in the project"
+          - name: latitude
+            description: "Geographical latitude of the institution"
+          - name: longitude
+            description: "Geographical longitude of the institution"
+
+      - name: regions
+        description: "Geographical regions and their details"
+        columns:
+          - name: region_id
+            description: "Unique identifier for the region"
+          - name: region_name
+            description: "Name of the region"
+          - name: description
+            description: "Description of the region's relevance"

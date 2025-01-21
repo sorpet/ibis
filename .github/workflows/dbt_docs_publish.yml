@@ -31,7 +31,7 @@ jobs:
         run: |
           mkdir -p ~/.dbt
           echo "
-          default:
+          ibis:
             target: dev
             outputs:
               dev:

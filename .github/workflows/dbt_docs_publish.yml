@@ -1,0 +1,44 @@
+name: Publish dbt Docs to Netlify
+
+on:
+  push:
+    branches:
+      - main  # Change to your main branch name if different
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      # Step 3: Install dbt and dependencies
+      - name: Install dbt
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-core dbt-postgres
+
+      # Step 4: Generate dbt documentation
+      - name: Generate dbt docs
+        run: |
+          dbt deps  # Install dbt packages if used
+          dbt debug  # Ensure the connection works
+          dbt docs generate
+
+      # Step 5: Deploy to Netlify
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0.0
+        with:
+          publish-dir: ./target  # Directory where dbt docs generates files
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
